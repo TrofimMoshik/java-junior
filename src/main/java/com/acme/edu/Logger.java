@@ -17,7 +17,7 @@ public class Logger {
     }
 
     public static void log(int message) {
-        if (message == Integer.MAX_VALUE) {
+        if ((SUM_INT + (long) message) >= Integer.MAX_VALUE) {
             SUM_INT = 0;
         }
         SUM_INT += message;
