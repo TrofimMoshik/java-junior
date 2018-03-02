@@ -1,22 +1,33 @@
 package com.acme.edu;
 
 public class Logger {
-    private static int SUM_INT = 0, SUM_STR = 0;
+//    public static void log(Object o) {
+//        Message mes = new Message();
+//        mes.set
+//
+//        TypeDefinition tp = new TypeDefinition();
+//        Types t = tp.checkType(o);
+//
+//        Controller contr = new Controller();
+//        contr.choose(t);
+//    }
+
+    Message message = new Message();
+
+    private static int SUM_INT = 0;
     private static String PRIM = "primitive: ";
     private static String REF = "reference: ";
     private static String CHAR = "char: ";
     private static String STR = "string: ";
     private static String ARR = "primitives array: ";
     private static String MATR = "primitives matrix: ";
-    private static String STR_TO_COMPARE;
 
     public static void flush(){
         SUM_INT = 0;
-        SUM_STR = 1;
-        STR_TO_COMPARE = "";
     }
 
     public static void log(int message) {
+        message.printInt(message);
         if ((SUM_INT + (long) message) >= Integer.MAX_VALUE) {
             SUM_INT = 0;
         }
@@ -56,17 +67,14 @@ public class Logger {
     }
 
     public static void log(byte message) {
-        Logger.flushStr();
         printToConsole(message, PRIM);
     }
 
     public static void log(Object message) {
-        Logger.flushStr();
         printToConsole(message.toString(), REF);
     }
 
     public static void log(boolean message) {
-        Logger.flushStr();
         if (message) {
             printToConsole("true", PRIM);
         } printToConsole("false", PRIM);
@@ -78,13 +86,7 @@ public class Logger {
     }
 
     public static void log(char message) {
-        Logger.flushStr();
         printToConsole(message, CHAR);
-    }
-
-    private static void flushStr(){
-        SUM_STR = 1;
-        STR_TO_COMPARE = "";
     }
 
     private static void printToConsole(int message, String prefix) {
