@@ -10,100 +10,81 @@ import java.io.IOException;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
+    private Logger sp;
+
     @Before
-    public void setUpSystemOut() throws IOException {
-        resetOut();
+    public void setUpSystemOut()  {
+        tearDown();
         captureSysout();
+
+        sp = new Logger();
     }
+    //endregion
 
     @After
     public void tearDown() {
         resetOut();
     }
-    //endregion
-
-
-
-    //TODO: implement Logger solution to match specification as tests
 
     @Test
-    public void shouldLogSequentIntegersAsSum() throws IOException {
+    public void shouldLogSequentIntegersAsSum() {
         //region when
-        Logger.log("str 1");
-        Logger.log(1);
-        Logger.log(2);
-        Logger.log("str 2");
-        Logger.log(0);
-
+        sp.log("str 1");
+        sp.log(1);
+        sp.log(2);
+        sp.log("str 2");
+        sp.log(0);
+        sp.close();
         //endregion
 
         //region then
-        assertSysoutContains("str 1");
-        assertSysoutContains("3");
-        assertSysoutContains("str 2");
-        assertSysoutContains("0");
+        assertSysoutContains("string: str 1");
+        assertSysoutContains("primitive: 3");
+        assertSysoutContains("string: str 2");
+        assertSysoutContains("primitive: 0");
         //endregion
     }
 
     @Test
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
-        Logger.log("str 1");
-        Logger.log(10);
-        Logger.log(Integer.MAX_VALUE);
-        Logger.log("str 2");
-        Logger.log(0);
+        sp.log("str 1");
+        sp.log(10);
+        sp.log(Integer.MAX_VALUE);
+        sp.log("str 2");
+        sp.log(0);
+        sp.close();
         //endregion
 
         //region then
-        assertSysoutContains("str 1");
-        assertSysoutContains("10");
-        assertSysoutContains(Integer.MAX_VALUE +"");//NOTE toString
-        assertSysoutContains("str 2");
-        assertSysoutContains("0");
+        assertSysoutContains("string: str 1");
+        assertSysoutContains("primitive: 10");
+        assertSysoutContains("primitive: ");
+        assertSysoutContains("string: str 2");
+        assertSysoutContains("primitive: 0");
         //endregion
     }
 
     @Test
-    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
+    public void shouldLogSameSubsequentStringsWithoutRepeat()  {
         //region when
-        Logger.log("str 1");
-        Logger.log((byte)10);
-        Logger.log((byte)Byte.MAX_VALUE);
-        Logger.log("str 2");
-        Logger.log(0);
+        sp.log("str 1");
+        sp.log("str 2");
+        sp.log("str 2");
+        sp.log(0);
+        sp.log("str 2");
+        sp.log("str 3");
+        sp.log("str 3");
+        sp.log("str 3");
+        sp.close();
         //endregion
 
         //region then
-        assertSysoutContains("str 1");
-        assertSysoutContains("10");
-        assertSysoutContains(Byte.MAX_VALUE + "");//NOTE здесь должен быть toString
-        assertSysoutContains("str 2");
-        assertSysoutContains("0");
+        assertSysoutContains("string: str 1");
+        assertSysoutContains("string: str 2 (x2)");
+        assertSysoutContains("primitive: 0");
+        assertSysoutContains("string: str 2");
+        assertSysoutContains("string: str 3 (x3)");
         //endregion
     }
-/*
-    @Test
-    public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
-        //region when
-        Logger.log("str 1");
-        Logger.log("str 2");
-        Logger.log("str 2");
-        Logger.log(0);
-        Logger.log("str 2");
-        Logger.log("str 3");
-        Logger.log("str 3");
-        Logger.log("str 3");
-        Logger.flush();
-        //endregion
-
-        //region then
-        assertSysoutContains("str 1");
-        assertSysoutContains("str 2 (x2)");
-        assertSysoutContains("0");
-        assertSysoutContains("str 2");
-        assertSysoutContains("str 3 (x3)");
-        //endregion
-    }
-*/
 }
