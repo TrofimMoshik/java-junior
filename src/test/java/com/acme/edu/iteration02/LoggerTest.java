@@ -34,6 +34,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(2);
         Logger.log("str 2");
         Logger.log(0);
+        Logger.log("");
 
         //endregion
 
@@ -53,6 +54,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(Integer.MAX_VALUE);
         Logger.log("str 2");
         Logger.log(0);
+        Logger.log("");
         //endregion
 
         //region then
@@ -69,7 +71,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Logger.log("str 1");
         Logger.log((byte)10);
-        Logger.log((byte)Byte.MAX_VALUE);
+        Logger.log((byte) Byte.MAX_VALUE);
         Logger.log("str 2");
         Logger.log(0);
         //endregion
@@ -77,12 +79,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region then
         assertSysoutContains("str 1");
         assertSysoutContains("10");
-        assertSysoutContains(Byte.MAX_VALUE + "");//NOTE здесь должен быть toString
+        assertSysoutContains(Byte.MAX_VALUE + "");
         assertSysoutContains("str 2");
         assertSysoutContains("0");
         //endregion
     }
-/*
+
     @Test
     public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
         //region when
@@ -94,7 +96,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str 3");
         Logger.log("str 3");
         Logger.log("str 3");
-        Logger.flush();
+        Logger.log(' ');
         //endregion
 
         //region then
@@ -105,5 +107,4 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("str 3 (x3)");
         //endregion
     }
-*/
 }

@@ -32,7 +32,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutEquals(
+        assertSysoutContains(
             "primitives array: {-1, 0, 1}\r\n"
         );
         //endregion
@@ -45,7 +45,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutEquals(
+        assertSysoutContains(
             "primitives matrix: {\r\n" +
                 "{-1, 0, 1}\r\n" +
                 "{1, 2, 3}\r\n" +
@@ -54,7 +54,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         );
         //endregion
     }
-/*
+
     @Test
     public void shouldLogIntegersMulitidimentionalArray() throws IOException {
         //region when
@@ -62,12 +62,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "primitives multimatrix: {\n" +
-                "{\n" + "{\n" + "{\n" +
-                    "0\n" +
-                "}\n" + "}\n" + "}\n" +
-            "}\n"
+        assertSysoutContains(
+            "primitives multimatrix: {\r\n" +
+                "{\r\n" + "{\r\n" + "{\r\n" +
+                    "0\r\n" +
+                "}\r\n" + "}\r\n" + "}\r\n" +
+            "}\r\n"
         );
         //endregion
     }
@@ -79,7 +79,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("str1\nstring 2\nstr 3");
+        assertSysoutContains("str1\r\nstring 2\r\nstr 3");
         //endregion
     }
 
@@ -101,15 +101,14 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str");
         Logger.log(Integer.MAX_VALUE - 10);
         Logger.log(11);
+        Logger.log("");
         //endregion
 
         //region then
-        assertSysoutContains(1);
+        assertSysoutContains("1");
         assertSysoutContains("str");
-        assertSysoutContains(Integer.MAX_VALUE - 10);
-        assertSysoutContains(11);
+        assertSysoutContains(Integer.MAX_VALUE - 10 + "");
+        assertSysoutContains("11");
         //endregion
     }
-
-    */
 }
