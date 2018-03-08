@@ -1,11 +1,28 @@
 package com.acme.edu.formatter;
 
+import com.acme.edu.message.*;
+
 /**
- * Created by Trofim Moshik on 03.03.2018.
- *
- * Интерфейс форматтеров.
+ * Created by Trofim Moshik on 08.03.2018.
  */
 public interface Formatter {
-    void format();
-    <T> T getValue();
+    String getFormatString(IntegerMessage integerMessage);
+
+    String getFormatString(ByteMessage byteMessage);
+
+    String getFormatString(CharMessage charMessage);
+
+    String getFormatString(StringMessage stringMessage);
+
+    String getFormatString(BoolMessage boolMessage);
+
+    String getFormatString(ObjMessage objMessage);
+
+    String getFormatString(ArrMessage arrMessage);
+
+    String getFormatString(MatrMessage matrMessage);
+
+    String getFormatString(MultiMatrMessage multiMatrMessage);
+
+    String getFormatString(StrVarArgMessage strVarArgMessage);
 }
